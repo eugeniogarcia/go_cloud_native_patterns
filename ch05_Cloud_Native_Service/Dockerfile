@@ -8,7 +8,7 @@
 
 # Part 1: Run all tests containerized Golang environment
 #
-FROM golang:1.16 as test
+FROM golang:1.17 as test
 
 # Copy the source files from the host
 COPY . /src
@@ -22,7 +22,7 @@ RUN go test -v .
 
 # Part 2: Compile the binary in a containerized Golang environment
 #
-FROM golang:1.16 as build
+FROM golang:1.17 as build
 
 # Copy the source files from the host
 COPY . /src
