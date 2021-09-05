@@ -39,6 +39,9 @@ WORKDIR /src
 #  GOOS=linux    --> Compile for Linux OS
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o kvs
 
+FROM ubuntu:latest as user
+RUN useradd -u 10001 kv-user
+RUN touch /transactions.log && chown kv-user /transactions.log
 
 # Part 3: Build the Key-Value Store image proper.
 #
@@ -50,6 +53,9 @@ FROM scratch
 # Copy the binary from the build container.
 COPY --from=build /src/kvs .
 COPY --from=build /src/*.pem .
+
+COPY --from=user /etc/passwd /etc/passwd
+COPY --from=user /transactions.log /transactions.log
 
 # Tell Docker we'll be using port 8080
 EXPOSE 8080
