@@ -40,6 +40,7 @@ func keyValuePutHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	//Genera el evento para que se escriba en el log
 	transact.WritePut(key, string(value))
 
 	w.WriteHeader(http.StatusCreated)
@@ -76,12 +77,13 @@ func keyValueDeleteHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//Publica un evento para actualizar el logger
+	//Genera el evento para que se escriba en el log
 	transact.WriteDelete(key)
 
 	log.Printf("DELETE key=%s\n", key)
 }
 
+//Rellena nuestro mapa con los datos encontrados en el transaction log
 func initializeTransactionLog() error {
 	var err error
 
@@ -157,5 +159,6 @@ func main() {
 
 	//Habilita https
 	log.Fatal(http.ListenAndServeTLS(":8080", "cert.pem", "key.pem", r))
+	//Lo mismo, pero con http en lugar de https
 	// log.Fatal(http.ListenAndServe(":8080", r))
 }
