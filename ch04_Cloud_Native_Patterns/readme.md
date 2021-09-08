@@ -43,6 +43,8 @@ Limitamos el número de ejecuciones:
 - _d_. Frecuencia con la que se incrementa la cuota
 - _refill_. Valor en el que se incrementa la cuota. La cuota no podrá superar nunca el valor _max_
 
+__Nota__: en el directorio ch09 tenemos otra implementación en la carpeta `tokenbucketv2`. En esta implementación tenemos un borrador de lo que sería el throttle por usuario - usando una key. Otra diferencia es que cuando estamos haciendo throttle, en lugar de retornar una respuesta cacheada, lo indicamos con un booleano - a false - y no retornamos datos
+
 # Concurrency Patterns
 
 ## Future
