@@ -1,4 +1,8 @@
-## Cobra
+# Cobra
+
+Podemos encontrar el [manual aquí](https://github.com/spf13/cobra/blob/master/user_guide.md).
+
+## How to use it
 
 - Estructura. La estrcutura consiste en _comandos_ que pueden usar _flags_. Tendremos siempre un comando base que equivale al propio programa, nuestro ejecutable, y comandos adicionales que están asociados a una función. Estos comandos pueden usar los _flags_ que pasamos como parametros con el comando. Los pasos para implementar todo esto son: 
 
