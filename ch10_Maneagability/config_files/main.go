@@ -3,6 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/go-yaml/yaml"
 )
 
 type Config struct {
@@ -35,8 +37,12 @@ func main() {
 
 	//Crea Json
 	bytes, _ := json.Marshal(c)
+	bytes_yaml, _ := yaml.Marshal(c)
 	fmt.Println("Convierte un objeto a JSON")
 	fmt.Println(string(bytes))
+	fmt.Println("")
+	fmt.Println("Convierte un objeto a yaml")
+	fmt.Println(string(bytes_yaml))
 	fmt.Println("")
 
 	//Crea Json con formato
@@ -55,6 +61,10 @@ func main() {
 	_ = json.Unmarshal(bytes, &d)
 	fmt.Println(d)
 	fmt.Println("")
+	fmt.Println("Convierte un Yaml a un objeto")
+	_ = yaml.Unmarshal(bytes_yaml, &d)
+	fmt.Println(d)
+	fmt.Println("")
 
 	//Convierte el JSon en un objeto
 	fmt.Println("Convierte un JSON a un objeto generico")
@@ -64,9 +74,22 @@ func main() {
 	//Es preciso hacer el cast antes de usarlo. El unmarshal convierte la información a un mapa de interface{}
 	m := e.(map[string]interface{})
 	fmt.Printf("<%T> %v\n", m, m)
-	fmt.Printf("<%T> %v\n", m["Foo"], m["Foo"])
-	fmt.Printf("<%T> %v\n", m["Number"], m["Number"])
+	fmt.Printf("<%T> %v\n", m["Host"], m["Host"])
+	fmt.Printf("<%T> %v\n", m["Port"], m["Port"])
 	fmt.Printf("<%T> %v\n", m["Tags"], m["Tags"])
+	fmt.Println("")
+
+	//Convierte el Yaml en un objeto
+	fmt.Println("Convierte un Yaml a un objeto generico")
+	_ = yaml.Unmarshal(bytes_yaml, &e)
+
+	//Es preciso hacer el cast antes de usarlo.	 OJO QUE EL TIPO ES DIFERENTE AL QUE OBTENIAMOS CON LOS JSONS
+	//OTRA DIFERENCIA ES QUE LOS KEYS SE PONEN EN MINUSCULA
+	m_yaml := e.(map[interface{}]interface{})
+	fmt.Printf("<%T> %v\n", m_yaml, m_yaml)
+	fmt.Printf("<%T> %v\n", m_yaml["host"], m_yaml["host"])
+	fmt.Printf("<%T> %v\n", m_yaml["port"], m_yaml["port"])
+	fmt.Printf("<%T> %v\n", m_yaml["tags"], m_yaml["tags"])
 	fmt.Println("")
 
 	personaliza1 := Tagged{
