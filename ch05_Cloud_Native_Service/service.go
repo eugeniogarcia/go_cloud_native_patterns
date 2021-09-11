@@ -49,6 +49,7 @@ func keyValuePutHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func keyValueGetHandler(w http.ResponseWriter, r *http.Request) {
+	//Obtiene el path parameter llamado key
 	vars := mux.Vars(r)
 	key := vars["key"]
 
@@ -62,6 +63,7 @@ func keyValueGetHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	//Devuelve el valor
 	w.Write([]byte(value))
 
 	log.Printf("GET key=%s\n", key)
